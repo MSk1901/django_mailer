@@ -1,0 +1,61 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<main>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <div class="card shadow-sm ">
+                        <div class="card-header">Рассылка {{ object.pk }}
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="card-text">Время начала: {{ object.start_time }}</p>
+                                    {% if object.end_time %}
+                                    <p class="card-text">Время окончания: {{ object.end_time }}</p>
+                                    {% endif %}
+                                    <p class="card-text">Периодичность: {{ object.get_frequency_display }}</p>
+                                    <p class="card-text">Статус: {{ object.get_status_display }}</p>
+
+                                </div>
+                                <div class="col-6">
+                                    <p class="card-text">Получатели</p>
+                                    {% for recipient in mailing.recipients.all %}
+                                    <p class="card-text">{{ recipient.name }}: {{ recipient.email }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    {% if user == object.owner %}
+                                    <div class="btn-group mt-4">
+                                        <a type="button" class="btn btn-sm btn-outline-secondary"
+                                           href="{% url 'mailer:update' object.pk %}">Редактировать
+                                        </a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger"
+                                           href="{% url 'mailer:delete' object.pk %}">Удалить</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% for message in messages %}
+                <div class="col-5">
+                    <div class="card shadow-sm ">
+                        <div class="card-header">Сообщение</div>
+                        <div class="card-body">
+                            <p class="card-text">Заголовок: {{ message.subject }}</p>
+                            <p class="card-text">Текст:</p>
+                            <p class="card-text">{{ message.body }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

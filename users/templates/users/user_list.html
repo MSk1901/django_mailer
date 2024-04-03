@@ -1,0 +1,51 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<main>
+
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Пользователи</h1>
+                <a href="{% url 'mailer:mailing_list' %}" class="btn btn-secondary my-2">Рассылки</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row">
+                {% for object in object_list %}
+                <div class="col-4">
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-header">Пользователь {{ object.email }}
+                        </div>
+
+                        <div class="card-body">
+                            {% if object.is_verified %}
+                            <p>Почта подтверждена</p>
+                            {% else %}
+                            <p>Почта не подтверждена</p>
+                            {% endif %}
+                            {% if object.is_active %}
+                            <p>Активен</p>
+                            {% else %}
+                            <p>Заблокирован</p>
+                            {% endif %}
+                            {% if perms.users.block and object.is_active %}
+                            <form action="{% url 'users:block' object.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Заблокировать</button>
+                            </form>
+                                {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</main>
+{% endblock %}
