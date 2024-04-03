@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 """
 URL configuration for config project.
 
@@ -22,4 +24,8 @@ app_name = 'mailer'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mailer.urls', namespace='mailer')),
+    path('users/', include('users.urls', namespace='users',)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

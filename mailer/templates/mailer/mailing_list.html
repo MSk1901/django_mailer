@@ -1,0 +1,71 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<main>
+
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">E-mail рассылки</h1>
+                {% if not perms.mailer.deactivate %}
+                <p>
+                    <a href="{% url 'mailer:create' %}" class="btn btn-primary my-2">Добавить рассылку</a>
+                    <a href="{% url 'mailer:clients_list' %}" class="btn btn-secondary my-2">Клиенты</a>
+                </p>
+                {% else %}
+                <p>
+                    <a href="{% url 'users:list' %}" class="btn btn-secondary my-2">Пользователи</a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            {% if not object_list %}
+            <h4 class="fw-light">Пока рассылок нет, но вы можете их добавить</h4>
+            {% endif %}
+            <div class="row">
+                {% for object in object_list %}
+                <div class="col-4">
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-header">Рассылка {{ object.pk }}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Время начала: {{ object.start_time }}</p>
+                            {% if object.end_time %}
+                            <p class="card-text">Время окончания: {{ object.end_time}}</p>
+                            {% endif %}
+                            <p class="card-text">Периодичность: {{ object.get_frequency_display }}</p>
+                            <p class="card-text">Статус: {{ object.get_status_display }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'mailer:mailing' object.pk %}">Посмотреть</a>
+                                    {% if perms.mailer.deactivate and object.status != 'finished' %}
+                                    <form action="{% url 'mailer:deactivate' object.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Отключить
+                                        </button>
+                                    </form>
+                                    {% elif user == object.owner %}
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'mailer:update' object.pk %}">Редактировать
+                                    </a>
+                                    <a type="button" class="btn btn-sm btn-outline-danger"
+                                       href="{% url 'mailer:delete' object.pk %}">Удалить</a>
+                                    {% endif %}
+                                </div>
+                                <a href="{% url 'mailer:mailing_logs' object.pk %}">Логи</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</main>
+{% endblock %}

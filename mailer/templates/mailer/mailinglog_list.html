@@ -1,0 +1,35 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<main>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row">
+                <h2 class="mt-4 mb-4">Логи рассылки {{ mailing.pk }} от {{ mailing.start_time }}</h2>
+                {% for object in object_list %}
+                <div class="col-4">
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-header">Лог {{ object.pk }}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Время попытки: {{ object.last_try}}</p>
+                            <p class="card-text">Статус:
+                                {% if object.status == 'success' %}
+                                <span class="text-success">{{ object.get_status_display }}</span>
+                                {% elif object.status == 'error' %}
+                                <span class="text-danger">{{ object.get_status_display }}</span>
+                                {% endif %}
+                            </p>
+                            {% if object.response %}
+                            <p class="card-text">Ответ почтового сервера: {{ object.response }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</main>
+{% endblock %}

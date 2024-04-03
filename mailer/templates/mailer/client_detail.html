@@ -1,0 +1,34 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<main>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-header">Клиент {{ object.pk }}</div>
+                        <div class="card-body">
+                            <p class="card-text">Имя: {{ object.name }}</p>
+                            <p class="card-text">E-mail: {{ object.email }}</p>
+                            {% if object.comment %}
+                            <p class="card-text">Периодичность: {{ object.comment }}</p>
+                            {% endif %}
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'mailer:clients_list' %}">Назад</a>
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'mailer:update_client' object.pk %}">Редактировать
+                                    </a>
+                                    <a type="button" class="btn btn-sm btn-outline-danger"
+                                       href="{% url 'mailer:delete_client' object.pk %}">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

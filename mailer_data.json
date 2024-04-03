@@ -1,0 +1,159 @@
+[
+  {
+    "model": "mailer.client",
+    "pk": 13,
+    "fields": {
+      "name": "Клиент 1",
+      "email": "test1@test.ru",
+      "comment": "",
+      "owner": 11
+    }
+  },
+  {
+    "model": "mailer.client",
+    "pk": 14,
+    "fields": {
+      "name": "Клиент 2",
+      "email": "test2@test.ru",
+      "comment": "",
+      "owner": 11
+    }
+  },
+  {
+    "model": "mailer.client",
+    "pk": 15,
+    "fields": {
+      "name": "Клиент 3",
+      "email": "test3@test.ru",
+      "comment": "",
+      "owner": 16
+    }
+  },
+  {
+    "model": "mailer.client",
+    "pk": 16,
+    "fields": {
+      "name": "Клиент 4",
+      "email": "test4@test.ru",
+      "comment": "",
+      "owner": 16
+    }
+  },
+  {
+    "model": "mailer.mailing",
+    "pk": 22,
+    "fields": {
+      "start_time": "2024-04-04T12:00:00Z",
+      "end_time": null,
+      "frequency": 0,
+      "status": "created",
+      "owner": 11,
+      "recipients": [
+        13,
+        14
+      ]
+    }
+  },
+  {
+    "model": "mailer.mailing",
+    "pk": 23,
+    "fields": {
+      "start_time": "2024-04-01T13:00:00Z",
+      "end_time": "2024-04-05T14:00:00Z",
+      "frequency": 0,
+      "status": "finished",
+      "owner": 11,
+      "recipients": [
+        13,
+        14
+      ]
+    }
+  },
+  {
+    "model": "mailer.mailing",
+    "pk": 24,
+    "fields": {
+      "start_time": "2024-04-04T09:00:00Z",
+      "end_time": "2024-05-04T09:00:00Z",
+      "frequency": 1,
+      "status": "created",
+      "owner": 16,
+      "recipients": [
+        15
+      ]
+    }
+  },
+  {
+    "model": "mailer.mailing",
+    "pk": 25,
+    "fields": {
+      "start_time": "2024-04-04T09:00:00Z",
+      "end_time": "2024-06-04T09:00:00Z",
+      "frequency": 2,
+      "status": "created",
+      "owner": 16,
+      "recipients": [
+        16
+      ]
+    }
+  },
+  {
+    "model": "mailer.mailing",
+    "pk": 26,
+    "fields": {
+      "start_time": "2024-04-04T09:00:00Z",
+      "end_time": "2025-04-04T09:00:00Z",
+      "frequency": 3,
+      "status": "created",
+      "owner": 16,
+      "recipients": [
+        16
+      ]
+    }
+  },
+  {
+    "model": "mailer.message",
+    "pk": 16,
+    "fields": {
+      "subject": "Test1",
+      "body": "Test1",
+      "mailing": 22
+    }
+  },
+  {
+    "model": "mailer.message",
+    "pk": 17,
+    "fields": {
+      "subject": "Test2",
+      "body": "Test2",
+      "mailing": 23
+    }
+  },
+  {
+    "model": "mailer.message",
+    "pk": 18,
+    "fields": {
+      "subject": "Test3",
+      "body": "Test3",
+      "mailing": 24
+    }
+  },
+  {
+    "model": "mailer.message",
+    "pk": 19,
+    "fields": {
+      "subject": "Test4",
+      "body": "Test4",
+      "mailing": 25
+    }
+  },
+  {
+    "model": "mailer.message",
+    "pk": 20,
+    "fields": {
+      "subject": "Test5",
+      "body": "Test5",
+      "mailing": 26
+    }
+  }
+]
