@@ -1,0 +1,32 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header text-center">
+                        {% if object.pk %}
+                        <h4 class="my-0 font-weight-normal">Редактировать рассылку</h4>
+                        {% else %}
+                        <h4 class="my-0 font-weight-normal">Новая рассылка</h4>
+                        {% endif %}
+                    </div>
+                    <div class="card-body m-3">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <h5>Сообщение</h5>
+                            {{ message_form.as_p }}
+
+                            <button type="submit" class="btn btn-outline-primary">Отправить</button>
+                            <a class="btn btn-outline-danger" href="{% url 'mailer:mailing_list' %}">Отменить</a>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

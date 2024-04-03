@@ -1,0 +1,27 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div class="card mt-5 box-shadow">
+            <div class="card-header text-center">
+                <h4 class="my-0 font-weight-normal">Удаление кииента</h4>
+            </div>
+            <form method="post" class="form-floating" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p class="card-text my-0 font-weight-normal mt-3 m-3">Хотите удалить клиента {{ object }}?</p>
+                <div class="row">
+                    <div class="col-2 m-3">
+                        <button type="submit" class="btn btn-outline-danger">Подтвердить</button>
+                    </div>
+                    <div class="col-2 m-3">
+                        <a class="btn btn btn-block btn-outline-secondary btn-center" href="{% url 'mailer:clients_list' %}">
+                            Отменить
+                        </a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

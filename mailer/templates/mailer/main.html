@@ -1,0 +1,44 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+{% load customtags %}
+<main>
+
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Главная</h1>
+                <h4 class="fw-light">Самый лучший сервис рассылок</h4>
+            </div>
+        </div>
+    </section>
+
+    <div class="album bg-body-tertiary">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-6">
+                    <h5 class="fw-light">Рассылок всего: {{ total_mailings }}</h5>
+                    <h5 class="fw-light">Активных рассылок: {{ active_mailings }}</h5>
+                </div>
+                <div class="col-6">
+                    <h5 class="fw-light text-end">Уникальных клиентов: {{ unique_clients }}</h5>
+                </div>
+            </div>
+            <div class="row">
+                {% for post in blog_posts %}
+                <div class="col-4">
+                    {% if post.preview %}
+                    <img src="{% mymedia post.preview %}" class="card-img-top">
+                    {% endif %}
+                    <div class="card mb-4 box-shadow">
+                        <h3 class="card-header my-0 font-weight-normal">{{ post.title }}</h3>
+                        <div class="card-body">
+                            <p class="card-text my-0 font-weight-normal">{{ post.content }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

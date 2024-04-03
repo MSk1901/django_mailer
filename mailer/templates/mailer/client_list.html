@@ -1,0 +1,54 @@
+{% extends 'mailer/base.html' %}
+{% block content %}
+<main>
+
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Клиенты</h1>
+                <p>
+                    <a href="{% url 'mailer:mailing_list' %}" class="btn btn-secondary my-2">Рассылки</a>
+                    <a href="{% url 'mailer:create_client' %}" class="btn btn-primary my-2">Добавить клиента</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            {% if not object_list %}
+            <h4 class="fw-light">Пока клиентов нет, но вы можете их добавить</h4>
+            {% endif %}
+            <div class="row">
+                {% for object in object_list %}
+                <div class="col-4">
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-header">Клиент {{ object.pk }}</div>
+                        <div class="card-body">
+                            <p class="card-text">Имя: {{ object.name }}</p>
+                            <p class="card-text">E-mail: {{ object.email }}</p>
+                            {% if object.comment %}
+                            <p class="card-text">Периодичность: {{ object.comment }}</p>
+                            {% endif %}
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'mailer:client' object.pk %}">Посмотреть</a>
+                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                       href="{% url 'mailer:update_client' object.pk %}">Редактировать
+                                    </a>
+                                    <a type="button" class="btn btn-sm btn-outline-danger"
+                                       href="{% url 'mailer:delete_client' object.pk %}">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</main>
+{% endblock %}
